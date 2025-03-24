@@ -14,5 +14,5 @@ Omni Sidero (cluster lifecycle management)
 
 🤔 Customizing?
 
-Tweak cluster-config/cluster.yaml for your hardware/cloud.
+Tweak k8s-cluster/cluster.yaml for your hardware/cloud.
 
