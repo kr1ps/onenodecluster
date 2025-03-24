@@ -1,0 +1,6 @@
+machine:
+    disks:
+        - device: /dev/sdb # The name of the disk to use.
+          # A list of partitions to create on the disk.
+          partitions:
+            - mountpoint: /var/mnt/extra # Where to mount the partition.

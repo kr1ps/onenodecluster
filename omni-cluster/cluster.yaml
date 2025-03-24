@@ -1,0 +1,29 @@
+kind: Cluster
+name: kr1ps-k8s-01
+talos:
+  version: v1.9.5
+kubernetes:
+  version: v1.32.2
+patches:
+  # Single-node cluster FTW! 💪
+  - name: allow-scheduling-on-controlplanes
+    file: ../patches/allow-scheduling-on-controlplanes.yaml
+---
+kind: ControlPlane
+machines:
+  - e23c3213-d36b-49da-e48e-4e22985c3fae
+---
+kind: Workers
+machines: []
+---
+# https://docs.lattepanda.com/content/sigma_edition/Specification/
+# https://ark.intel.com/content/www/us/en/ark/products/232126/intel-core-i5-1340p-processor-12m-cache-up-to-4-60-ghz.html
+kind: Machine
+name: e23c3213-d36b-49da-e48e-4e22985c3fae
+install:
+  disk: /dev/sda
+patches:
+  - name: network
+    file: ../patches/kr1ps-sn-network.yaml
+  - name: machine-extra-disk
+    file: ../patches/machine-extra-disk.yaml

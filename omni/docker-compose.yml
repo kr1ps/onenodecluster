@@ -1,0 +1,41 @@
+services:
+  omni:
+    image: ghcr.io/siderolabs/omni:${OMNI_VERSION}
+    env_file:
+      - .env
+    container_name: omni
+    devices:
+      - /dev/net/tun
+    cap_add:
+      - NET_ADMIN
+    restart: always
+    network_mode: host
+    volumes:
+      - ./data:/data
+      - ./etcd:/_out/etcd
+      - ./certs:/certs
+      - ./omni.asc:/omni.asc:ro
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - OMNI_LICENSE_KEY=${OMNI_LICENSE_KEY}
+      
+    command:
+      - --name=$OMNI_NAME
+      - --private-key-source=file:///omni.asc
+      - --cert=/certs/kr1ps.com.crt
+      - --key=/certs/kr1ps.com.key
+      - --siderolink-api-cert=/certs/kr1ps.com.crt
+      - --siderolink-api-key=/certs/kr1ps.com.key
+      - --event-sink-port=8091
+      - --bind-addr=0.0.0.0:443
+      - --siderolink-api-bind-addr=0.0.0.0:8090
+      - --k8s-proxy-bind-addr=0.0.0.0:8100
+      - --advertised-api-url=https://$OMNI_DOMAIN/
+      - --siderolink-api-advertised-url=https://$OMNI_DOMAIN:8090/
+      - --siderolink-wireguard-advertised-addr=172.18.0.46:50180
+      - --advertised-kubernetes-proxy-url=https://$OMNI_DOMAIN:8100/
+      - --account-id=$OMNI_UUID
+      #- --siderolink-use-grpc-tunnel=true
+      - --auth-saml-enabled=${SAML_ENABLED}
+      - --auth-saml-url=${SAML_METADATA_URL}
+      - --initial-users=${INITIAL_USER_EMAILS}

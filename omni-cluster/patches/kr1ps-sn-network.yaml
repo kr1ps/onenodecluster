@@ -1,0 +1,21 @@
+machine:
+  time:
+    disabled: false # Indicates if the time service is disabled for the machine.
+    servers:
+      - time.cloudflare.com
+  network:
+    interfaces:
+      - interface: eth0
+        addresses:
+          - 172.18.0.58/24
+        routes:
+          - network: 0.0.0.0/0
+            metric: 1024
+            mtu: 1500
+            gateway: "172.18.0.1"
+    hostname: k8s-onc-01.kr1ps.com
+    nameservers:
+      - 172.18.0.23
+      - 172.18.0.22
+
+
