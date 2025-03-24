@@ -1,4 +1,5 @@
 🚀 One-Node K8s Cluster (Talos + Omni)
+
 Supporting resources for my blog post about ditching 7-node k3s for a minimalist Talos Linux setup. https://kr1ps.com/one-node-kubernetes-cluster-production-ready-why-talos-linux-is-a-game-changer/
 
 ⚡ What’s Here?
